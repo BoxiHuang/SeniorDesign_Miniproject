@@ -1,0 +1,5 @@
+BORIS: write a script that receives 2 arrays with ints, and another array with dates. Graph this data with a humidity over time and temperature over time graph. Can use mock inputs for now
+
+JON: integrate database and login page with error checking if user is not found or password doesn't match. create page for registering as a new user and entering into database. 
+
+BOTH(ONCE OTHER TWO GOALS ARE COMPLETED): home web page to display graph.
