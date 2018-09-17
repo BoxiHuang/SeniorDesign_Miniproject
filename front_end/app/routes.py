@@ -1,11 +1,11 @@
 from app import app
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for,session
 from app.forms import LoginForm
 from app.forms import RegistrationForm
+from app.forms import SensorSubmitForm
 from app import db
-from app.models import User, Data
+from app.models import User, Data, Sensor
 from flask_login import current_user, login_user
-from app.models import User
 from flask_login import logout_user
 from flask_login import login_required
 from flask_wtf import FlaskForm
@@ -13,21 +13,21 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-    return '''
-<html>
-    <head>
-        <title>Home Page - Sensor Site Senior Design</title>
-    </head>
-    <body>
-        <h1>Hello!</h1>
-    </body>
-</html>'''
+    form = SensorSubmitForm()
+    user_id = session["user_id"]
+    user = User.query.filter_by(id=user_id).first()
+    this_sensor = Sensor.query.filter_by(user_id=user_id).first()
+    if form.validate_on_submit():
+        sensor = Sensor(name=form.sensor_name.data,user_id=user_id)
+        db.session.add(sensor)
+        db.session.commit()
+    return render_template('index.html',user=user,sensor_display=this_sensor,form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])

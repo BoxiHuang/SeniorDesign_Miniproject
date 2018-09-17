@@ -1,0 +1,15 @@
+<head>
+    <title>Home Page - Sensor Site Senior Design</title>
+</head>
+<body>
+    <h1>Hello  {{user.username}}    !</h1>
+    <h2>{{sensor_display.name}}</h2>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+             {{ form.sensor_name.label }}<br>
+            {{ form.sensor_name(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
