@@ -1,0 +1,17 @@
+localhost/ - FIRST WEB PAGE
+-will send user to /login if they don't have a cookie which verifies they've logged in before
+
+
+
+
+
+
+localhost/login 
+- allows users to login into their accounts, grabs information from database. has redirect link to register
+
+localhost/register 
+- will create a new user with specified password and username and add info to database after hashing password and verifying the username is unique in our system
+
+
+localhost/edit-data
+-simply a web page for testing purposes. enter in humidity and weather for a sensor that is already created. will automatically input into databse with time of entry
