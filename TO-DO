@@ -1,5 +1,4 @@
-BORIS: write a script that receives 2 arrays with ints, and another array with dates. Graph this data with a humidity over time and temperature over time graph. Can use mock inputs for now
+BORIS: write a script that receives a json file with dates/temp/humidity. Graph this data with a humidity over time and temperature over time graph. Can use mock inputs for now. Verify this works with the data the site will be sending. Then proceed to upload it to AWS Lambda so it can become a cloud function
 
-JON: integrate database and login page with error checking if user is not found or password doesn't match. create page for registering as a new user and entering into database. 
+JON: first step is a database schema. second step is authentication, creating a proper login and registration page that interacts with the database. write a web page that takes inputs to help us create mock data for testing purposes. work on web-page for inputting a new sensor name and for requesting data for any sensors currently available.
 
-BOTH(ONCE OTHER TWO GOALS ARE COMPLETED): home web page to display graph.
