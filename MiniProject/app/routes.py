@@ -17,6 +17,10 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import boto3
 import json
 client = boto3.client('lambda',region_name='us-east-1')
+session = boto3.Session(
+    aws_access_key_id=settings.AKIAIXH6VKQF4EJMORFA,
+    aws_secret_access_key=settings.oRFN202Wl992FzCJ/+sZ71P0I/va3D1YAExCBIjM,
+)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
