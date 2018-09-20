@@ -1,0 +1,32 @@
+<h1>Enter Data</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(size=32) }}
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.sensorName.label }}<br>
+        {{ form.sensorName(size=32) }}
+        {% for error in form.sensorName.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.temperature.label }}<br>
+        {{ form.temperature(size=32) }}
+        {% for error in form.temperature.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.humidity.label }}<br>
+        {{ form.humidity(size=32) }}
+        {% for error in form.humidity.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
