@@ -1,0 +1,23 @@
+<head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+    <title>Home Page - Sensor Site Senior Design</title>
+</head>
+<body>
+    <h1>Hello  {{user.username}}    !</h1>
+    <form action="" method="post">
+        {{ thisForm.hidden_tag() }}
+        <p>
+                {{ thisForm.sensor_select }}
+        </p>
+        <p>{{ thisForm.submit() }}</p>
+    </form>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+             {{ form.sensor_name.label }}<br>
+            {{ form.sensor_name(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <li><a href={{inurl}}>Check Out This Form!</a>
+</body>
