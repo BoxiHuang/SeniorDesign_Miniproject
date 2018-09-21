@@ -16,10 +16,19 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import boto3
 import json
+<<<<<<< HEAD:site_code/app/routes.py
 import webbrowser
 from urllib.request import urlopen
 client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id='AKIAIXH6VKQF4EJMORFA',
     aws_secret_access_key='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')
+=======
+client = boto3.client('lambda',region_name='us-east-1')
+session = boto3.Session(
+    aws_access_key_id=settings.AKIAIXH6VKQF4EJMORFA,
+    aws_secret_access_key=settings.oRFN202Wl992FzCJ/+sZ71P0I/va3D1YAExCBIjM,
+)
+
+>>>>>>> 938e293eef6013a61713c9b6bb9ed55a5e36685d:MiniProject/app/routes.py
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
