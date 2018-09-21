@@ -16,12 +16,15 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import boto3
 import json
-client = boto3.client('lambda',region_name='us-east-1')
-
+import webbrowser
+from urllib.request import urlopen
+client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id='AKIAIXH6VKQF4EJMORFA',
+    aws_secret_access_key='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')
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
+    st = ""
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     form = SensorSubmitForm()
@@ -38,8 +41,14 @@ def index():
     sensor_list = Sensor.query.filter_by(user_id=user_id).all()
     my_sensor = thisForm.sensor_select.data
     data = Data.query.filter_by(sensor_id=my_sensor).all()
-    plotGraph(data)
-    return render_template('index.html',user=user,sensor_display=this_sensor,form=form,thisForm = thisForm,sensor_list = sensor_list)
+    thisurl = plotGraph(data)
+    if thisurl != 'none':
+        print(thisurl)
+        newstr = thisurl[:0] + thisurl[1:]
+        st = newstr[:-1]
+        print(st)
+        return render_template('index.html',user=user,sensor_display=this_sensor,form=form,thisForm = thisForm,sensor_list = sensor_list,inurl = st)
+    return render_template('index.html',user=user,sensor_display=this_sensor,form=form,thisForm = thisForm,sensor_list = sensor_list,inurl = st)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -121,13 +130,17 @@ def plotGraph(data):
         temp1 = ''.join(str(x) for x in t_ime)
         response = client.get_account_settings()
         print(response)
+        data = {'temp':temp,'humidity':humidity,'time':t_ime}
+        print(data)
+        data_json = json.dumps(data)
         response = client.invoke(
-            ClientContext='MyApp',
-            FunctionName='arn:aws:lambda:us-east-1:151458706839:function:bobocandoit',
-            InvocationType='Event',
-            Payload='{"temp": '+temp1+',\n+"humidity": '+humidity1+',\n"time": '+time1+'\n}',
-            Qualifier='1'
+            FunctionName='bobocandoit',
+            InvocationType='RequestResponse',
+            Payload=data_json,
         )
 
-        print(response)
-
+        thisresponse = response['Payload'].read()
+        print(thisresponse)
+        return(thisresponse)
+    else:
+        return('none')
